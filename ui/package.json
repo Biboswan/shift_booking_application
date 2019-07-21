@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Implement a shift booking application with React and utilize the provided mock API",
   "scripts": {
-    "client": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
