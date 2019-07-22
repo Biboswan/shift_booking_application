@@ -1,11 +1,18 @@
 import React from "react";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import UserShiftsGroupHeader from "./UserShiftsGroupHeader";
 import UserShiftsGroupItem from "./UserShiftsGroupItem";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+  groupItemsList: {
+    width: "100%",
+    display: "block"
+  }
+}));
 
 const UserShiftsGroupContainer = props => {
   const { date, booked_shifts } = props.group;
+  const classes = useStyles();
   const noOfShifts = booked_shifts.length;
   const totalMins = booked_shifts.reduce(
     (acc, shift) => acc + (shift.endTime - shift.startTime) / (1000 * 60),
@@ -19,10 +26,11 @@ const UserShiftsGroupContainer = props => {
         noOfShifts={noOfShifts}
         totalDuration={totalDuration}
       />
-
-      {booked_shifts.map(shift => (
-        <UserShiftsGroupItem key={shift.id} shift={shift} />
-      ))}
+      <ul className={classes.groupItemsList}>
+        {booked_shifts.map(shift => (
+          <UserShiftsGroupItem key={shift.id} shift={shift} />
+        ))}
+      </ul>
     </>
   );
 };

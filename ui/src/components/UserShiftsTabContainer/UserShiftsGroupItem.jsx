@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import { Button } from "../Button";
-import { fontWeight } from "@material-ui/system";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 const UserShiftsGroupItem = props => {
   const classes = useStyles();
-  const { area, startTime, endTime } = props.shift;
+  const { id, area, startTime, endTime } = props.shift;
   const startDate = new Date(startTime);
   const endDate = new Date(endTime);
   const startHour = startDate.getHours();
@@ -34,14 +33,21 @@ const UserShiftsGroupItem = props => {
   const endMin = endMinNumber > 9 ? endMinNumber : `0${endMinNumber}`;
 
   const shiftTime = `${startHour}:${startMin} - ${endHour}:${endMin}`;
+
+  //checking whether shift has already started
+  let isDisable = false;
+  if (new Date() > startDate) {
+    isDisable = true;
+  }
+
   return (
-    <div className={classes.root}>
+    <li className={classes.root}>
       <div>
         <div className={classes.mainHeader}>{shiftTime}</div>
         <div className={classes.subHeader}>{area}</div>
       </div>
-      <Button type="Cancel" />
-    </div>
+      <Button isDisable={isDisable} id={id} type="Cancel" />
+    </li>
   );
 };
 
