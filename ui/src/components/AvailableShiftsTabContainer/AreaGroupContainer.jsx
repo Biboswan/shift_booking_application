@@ -30,14 +30,14 @@ const AreaGroupContainer = props => {
       ob;
     const len = group.length;
     for (let i = 0; i < len; i++) {
-      const { id, prevId } = group[i];
+      const { id, prevId, nextId } = group[i];
       const date = calcDate(shifts[id].startTime);
       if (date !== prevDate) {
         ob = { date, shifts: [{ id, prevId }] };
         prevDate = date;
         groupByDateShifts.push(ob);
       } else {
-        ob["shifts"].push({ id, prevId });
+        ob["shifts"].push({ id, prevId, nextId });
       }
     }
 
@@ -50,8 +50,14 @@ const AreaGroupContainer = props => {
         <ListItem key={date} divider classes={{ root: classes.groupContainer }}>
           <DateGroupHeader date={date} />
           <ul className={classes.groupItemsList}>
-            {shifts.map(({ id, prevId }) => (
-              <DateGroupItem showBookStatus key={id} id={id} prevId={prevId} />
+            {shifts.map(({ id, prevId, nextId }) => (
+              <DateGroupItem
+                showBookStatus
+                key={id}
+                id={id}
+                prevId={prevId}
+                nextId={nextId}
+              />
             ))}
           </ul>
         </ListItem>

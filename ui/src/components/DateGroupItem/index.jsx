@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 const DateGroupItem = props => {
   const classes = useStyles();
   const { shifts } = useContext(ShiftsContext);
-  const { id, prevId } = props;
+  const { id, prevId, nextId } = props;
   const { area, startTime, endTime, booked } = shifts[id];
   const { showBookStatus = false } = props;
   const startDate = new Date(startTime);
@@ -52,6 +52,7 @@ const DateGroupItem = props => {
     isDisable = true;
   }
 
+  //Checking whether any overlapping shifts exist
   let bookStatus;
   if (showBookStatus && !booked) {
     let prevShift = shifts[prevId];
@@ -59,6 +60,15 @@ const DateGroupItem = props => {
       let prevEndDate = new Date(prevShift.endTime);
       if (prevEndDate > startDate) {
         bookStatus = "Overlapping";
+      }
+    }
+    if (bookStatus !== "Overlapping") {
+      let nextShift = shifts[nextId];
+      if (nextShift && nextShift.booked) {
+        let nextStartDate = new Date(nextShift.startTime);
+        if (endDate > nextStartDate) {
+          bookStatus = "Overlapping";
+        }
       }
     }
   }

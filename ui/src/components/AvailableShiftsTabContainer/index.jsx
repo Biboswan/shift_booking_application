@@ -50,10 +50,13 @@ const groupByArea = shifts => {
 
   const len = shiftsArrSorted.length;
   const areaGroup = { Helsinki: [], Tampere: [], Turku: [] };
-  let prevId;
+  let prevId, nextId;
   for (let i = 0; i < len; i++) {
     let shift = shiftsArrSorted[i];
-    areaGroup[shift.area].push({ id: shift.id, prevId });
+    if (i + 1 < len) {
+      nextId = shiftsArrSorted[i + 1].id;
+    }
+    areaGroup[shift.area].push({ id: shift.id, prevId, nextId });
     prevId = shift.id;
   }
   return areaGroup;
