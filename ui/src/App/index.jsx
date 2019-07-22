@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ThemeProvider, makeStyles } from "@material-ui/styles";
+import { ThemeProvider } from "@material-ui/styles";
 import theme from "../theme";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";

@@ -32,6 +32,12 @@ const useStyles = makeStyles(theme => ({
   item: {
     width: "100vw",
     maxWidth: 525
+  },
+  tabContainer: {
+    backgroundColor: theme.palette.white,
+    minHeight: "75vh",
+    borderRadius: 10,
+    boxShadow: `0px 0px 10px 2px ${theme.palette.lightGreyMain}`
   }
 }));
 
@@ -89,14 +95,14 @@ const Home = () => {
         </Tabs>
         <ShiftsContext.Provider value={{ shifts, shiftDispatch }}>
           {isLoading ? (
-            <img src="../../assets/spinner_green-svg" alt="spinner" />
+            <div>Loading...</div>
           ) : (
-            <>
+            <div className={classes.tabContainer}>
               {shiftTabType === USER_SHIFT_TYPE && <UserShiftsTabContainer />}
               {shiftTabType === AVAILABLE_SHIFT_TYPE && (
                 <AvailableShiftsTabContainer />
               )}
-            </>
+            </div>
           )}
         </ShiftsContext.Provider>
       </div>

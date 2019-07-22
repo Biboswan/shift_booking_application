@@ -1,12 +1,21 @@
 import React, { useContext } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import { makeStyles } from "@material-ui/core";
 import calcDate from "../../utils/calcDate";
 import { ShiftsContext } from "../../Context";
 import UserShiftsGroupContainer from "./UserShiftsGroupContainer";
 
+const useStyles = makeStyles(theme => ({
+  groupContainer: {
+    flexWrap: "wrap",
+    padding: 0
+  }
+}));
+
 //TODO: Memoize it so that switching tabs becomes faster
 const UserShiftsTabContainer = () => {
+  const classes = useStyles();
   const { shifts } = useContext(ShiftsContext);
 
   // sorting booked shifts in ascending order of start time and group by date
@@ -30,13 +39,18 @@ const UserShiftsTabContainer = () => {
       }
     }
     console.log("lau");
+    console.log(groupByDateShifts);
     return groupByDateShifts;
   };
 
   return (
-    <List>
+    <List disablePadding>
       {groupByDateShifts(shifts).map(group => (
-        <ListItem key={group.date}>
+        <ListItem
+          divider
+          classes={{ root: classes.groupContainer }}
+          key={group.date}
+        >
           <UserShiftsGroupContainer group={group} />
         </ListItem>
       ))}
