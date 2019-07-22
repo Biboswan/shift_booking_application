@@ -18,9 +18,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserShiftsGroupHeader = props => {
+const DateGroupHeader = props => {
   const classes = useStyles();
-  const { date, noOfShifts, totalDuration } = props;
+  const { date, noOfShifts, totalDuration, showSubHeader = false } = props;
   return (
     <div className={classes.root}>
       <Typography
@@ -29,17 +29,21 @@ const UserShiftsGroupHeader = props => {
         component="h2"
       >
         {date}
-        <Typography
-          variant="subtitle2"
-          component="span"
-          className={classes.subHeader}
-        >
-          {" "}
-          {noOfShifts} {noOfShifts > 1 ? "shifts" : "shift"}, {totalDuration}
-        </Typography>
+        {showSubHeader ? (
+          <Typography
+            variant="subtitle2"
+            component="span"
+            className={classes.subHeader}
+          >
+            {" "}
+            {noOfShifts} {noOfShifts > 1 ? "shifts" : "shift"}, {totalDuration}
+          </Typography>
+        ) : (
+          ""
+        )}
       </Typography>
     </div>
   );
 };
 
-export default UserShiftsGroupHeader;
+export default DateGroupHeader;

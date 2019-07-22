@@ -22,6 +22,7 @@ const createTheme = isLightTheme => {
       darkGrayMain: DARK_GREY_MAIN,
       darkGraySecondary: DARK_GREY_SECONDARY,
       lightGreyMain: LIGHT_GREY_MAIN,
+      pinkMain: PINK_MAIN,
       white: WHITE
     },
     text: {

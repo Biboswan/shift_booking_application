@@ -1,12 +1,13 @@
 import React from "react";
-import UserShiftsGroupHeader from "./UserShiftsGroupHeader";
-import UserShiftsGroupItem from "./UserShiftsGroupItem";
 import { makeStyles } from "@material-ui/core";
+import DateGroupHeader from "../DateGroupHeader";
+import DateGroupItem from "../DateGroupItem";
 
 const useStyles = makeStyles(theme => ({
   groupItemsList: {
     width: "100%",
-    display: "block"
+    display: "block",
+    padding: 16
   }
 }));
 
@@ -21,14 +22,15 @@ const UserShiftsGroupContainer = props => {
   const totalDuration = `${totalMins / 60} h ${totalMins % 60} m`;
   return (
     <>
-      <UserShiftsGroupHeader
+      <DateGroupHeader
         date={date}
         noOfShifts={noOfShifts}
         totalDuration={totalDuration}
+        showSubHeader
       />
       <ul className={classes.groupItemsList}>
         {booked_shifts.map(shift => (
-          <UserShiftsGroupItem key={shift.id} shift={shift} />
+          <DateGroupItem key={shift.id} id={shift.id} />
         ))}
       </ul>
     </>
