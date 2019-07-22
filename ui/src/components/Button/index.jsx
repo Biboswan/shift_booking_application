@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core";
 import { ShiftsContext } from "../../Context";
+import Spinner from "../Spinner";
 import mapByValue from "../../utils/mapByValue";
 
 const useStyles = makeStyles(theme => ({
@@ -31,12 +32,15 @@ const useStyles = makeStyles(theme => ({
 const BASE_URL = `${process.env.REACT_APP_API_SERVER}/shifts`;
 
 export const Button = props => {
-  const { id, type, isDisable } = props;
+  const [isRequesting, setIsRequesting] = useState(false);
+  const { shifts, shiftDispatch } = useContext(ShiftsContext);
+  const { id, isDisable } = props;
   const classes = useStyles();
-  const [disable, setDisable] = useState(isDisable);
-  const { shiftDispatch } = useContext(ShiftsContext);
+
+  const isBooked = shifts[id].booked;
   //const style = classes.activeCancelButton;
   const onHandleCancel = e => {
+    setIsRequesting(true);
     const cancelShift = async () => {
       try {
         const res = await fetch(`${BASE_URL}/${id}/cancel`, {
@@ -52,11 +56,13 @@ export const Button = props => {
         console.log(err);
       }
     };
-    setDisable(true);
     cancelShift();
+    setIsRequesting(false);
   };
 
   const onHandleBook = e => {
+    setIsRequesting(true);
+    console.log(isRequesting);
     const bookShift = async () => {
       try {
         const res = await fetch(`${BASE_URL}/${id}/book`, {
@@ -72,19 +78,31 @@ export const Button = props => {
         console.log(err);
       }
     };
-    setDisable(true);
     bookShift();
+    setIsRequesting(false);
   };
 
   return (
     <button
-      disable={`${disable}`}
+      disabled={isDisable}
       className={`${classes.root} ${
-        disable ? classes.disableCancelButton : classes.activeCancelButtton
+        isBooked
+          ? isDisable
+            ? classes.disableCancelButton
+            : classes.activeCancelButtton
+          : isDisable
+          ? classes.disableBookButton
+          : classes.activeBookButtton
       }`}
-      onClick={type === "cancel" ? onHandleCancel : onHandleBook}
+      onClick={isBooked ? onHandleCancel : onHandleBook}
     >
-      {type}
+      {isRequesting ? (
+        <Spinner color={isBooked ? "red" : "green"} />
+      ) : isBooked ? (
+        "Cancel"
+      ) : (
+        "Book"
+      )}
     </button>
   );
 };

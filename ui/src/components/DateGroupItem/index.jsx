@@ -46,12 +46,6 @@ const DateGroupItem = props => {
 
   const shiftTime = `${startHour}:${startMin} - ${endHour}:${endMin}`;
 
-  //checking whether shift has already started
-  let isDisable = false;
-  if (new Date() > startDate) {
-    isDisable = true;
-  }
-
   //Checking whether any overlapping shifts exist
   let bookStatus;
   if (showBookStatus && !booked) {
@@ -71,6 +65,12 @@ const DateGroupItem = props => {
         }
       }
     }
+  }
+
+  //checking whether shift has already started
+  let isDisableBtn = false;
+  if (new Date() > startDate || bookStatus === "Overlapping") {
+    isDisableBtn = true;
   }
 
   return (
@@ -101,7 +101,7 @@ const DateGroupItem = props => {
         ) : (
           ""
         )}
-        <Button isDisable={isDisable} id={id} type="Cancel" />
+        <Button isDisable={isDisableBtn} id={id} />
       </Box>
     </li>
   );
