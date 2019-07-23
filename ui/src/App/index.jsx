@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import Home from "../pages/Home";
 
 const App = () => {
-  const [themeType, setThemeType] = useState("lightTheme");
+  const [themeType] = useState("lightTheme");
   useEffect(() => {
     console.log("React App Running...");
   }, []);

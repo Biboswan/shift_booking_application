@@ -46,18 +46,18 @@ const groupByArea = shifts => {
   const now = new Date().getTime();
   const shiftsArrSorted = shiftsArr
     .filter(shift => shift.endTime > now)
-    .sort((a, b) => (a.startTime < b.startTime ? -1 : 1));
+    .sort((a, b) => {
+      if (a.startTime < b.startTime) return -1;
+      if (a.startTime > b.startTime) return 1;
+      if (a.endTime < b.endTime) return -1;
+      return 1;
+    });
 
   const len = shiftsArrSorted.length;
   const areaGroup = { Helsinki: [], Tampere: [], Turku: [] };
-  let prevId, nextId;
   for (let i = 0; i < len; i++) {
     let shift = shiftsArrSorted[i];
-    if (i + 1 < len) {
-      nextId = shiftsArrSorted[i + 1].id;
-    }
-    areaGroup[shift.area].push({ id: shift.id, prevId, nextId });
-    prevId = shift.id;
+    areaGroup[shift.area].push({ id: shift.id });
   }
   return areaGroup;
 };
