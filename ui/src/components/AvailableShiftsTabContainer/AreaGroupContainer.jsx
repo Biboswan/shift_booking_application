@@ -16,6 +16,10 @@ const useStyles = makeStyles(theme => ({
   groupContainer: {
     flexWrap: "wrap",
     padding: 0
+  },
+  groupsList: {
+    height: "92%",
+    overflowY: "auto"
   }
 }));
 
@@ -45,7 +49,7 @@ const AreaGroupContainer = props => {
   };
 
   return (
-    <List>
+    <List classes={{ root: classes.groupsList }}>
       {groupByDateShifts().map(({ date, shifts }) => (
         <ListItem key={date} divider classes={{ root: classes.groupContainer }}>
           <DateGroupHeader date={date} />

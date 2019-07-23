@@ -7,7 +7,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginBottom: 7
   },
   mainHeader: {
     color: theme.palette.darkGrayMain,
@@ -16,13 +17,14 @@ const useStyles = makeStyles(theme => ({
   subHeader: {
     color: theme.palette.darkGraySecondary
   },
-  bookStatusBooked: {
+  bookStatusBookedColor: {
     color: theme.palette.darkGrayMain
   },
-  boldFont: {
-    fontWeight: "bold"
+  bookStatusfont: {
+    fontWeight: "bold",
+    paddingRight: 20
   },
-  bookStatusOverlap: {
+  bookStatusOverlapColor: {
     color: theme.palette.pinkMain
   }
 }));
@@ -79,19 +81,19 @@ const DateGroupItem = props => {
         <div className={classes.mainHeader}>{shiftTime}</div>
         <div className={classes.subHeader}>{area}</div>
       </div>
-      <Box display="flex" justifyContent="space-between">
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         {showBookStatus ? (
           <div>
             {booked ? (
               <Typography
-                className={`${classes.bookStatusBooked} ${classes.boldFont}`}
+                className={`${classes.bookStatusBookedColor} ${classes.bookStatusfont}`}
               >
                 Booked
               </Typography>
             ) : (
               bookStatus === "Overlapping" && (
                 <Typography
-                  className={`${classes.bookStatusOverlap} ${classes.boldFont}`}
+                  className={`${classes.bookStatusOverlapColor} ${classes.bookStatusfont}`}
                 >
                   Overlapping
                 </Typography>

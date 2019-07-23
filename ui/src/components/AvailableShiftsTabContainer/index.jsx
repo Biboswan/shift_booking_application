@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import AreaGroupContainer from "./AreaGroupContainer";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import { ShiftsContext } from "../../Context";
 
 const useStyles = makeStyles(theme => ({
@@ -86,7 +86,9 @@ export default () => {
         {AREAS.map(area => (
           <Tab
             key={area}
-            label={`${area} (${areaGroup[area].length})`}
+            label={
+              <Typography>{`${area} (${areaGroup[area].length})`}</Typography>
+            }
             classes={{ root: classes.tabRoot, selected: classes.activeTab }}
             value={area}
           />

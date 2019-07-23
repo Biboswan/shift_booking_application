@@ -10,6 +10,10 @@ const useStyles = makeStyles(theme => ({
   groupContainer: {
     flexWrap: "wrap",
     padding: 0
+  },
+  root: {
+    height: "98%",
+    overflowY: "auto"
   }
 }));
 
@@ -44,7 +48,7 @@ const UserShiftsTabContainer = () => {
   };
 
   return (
-    <List disablePadding>
+    <List classes={{ root: classes.root }} disablePadding>
       {groupByDateShifts(shifts).map(group => (
         <ListItem
           divider

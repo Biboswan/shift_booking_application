@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
 import UserShiftsTabContainer from "../../components/UserShiftsTabContainer";
 import AvailableShiftsTabContainer from "../../components/AvailableShiftsTabContainer";
+import Spinner from "../../components/Spinner";
 import { ShiftsContext } from "../../Context";
 import mapByValue from "../../utils/mapByValue";
 
@@ -35,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
   tabContainer: {
     backgroundColor: theme.palette.white,
-    minHeight: "75vh",
+    height: "75vh",
     borderRadius: 10,
     boxShadow: `0px 0px 10px 2px ${theme.palette.lightGreyMain}`
   }
@@ -85,17 +87,25 @@ const Home = () => {
           <Tab
             classes={{ root: classes.tabRoot, selected: classes.activeTab }}
             value={USER_SHIFT_TYPE}
-            label="My shifts"
+            label={
+              <Typography variant="h5" component="h2">
+                My shifts
+              </Typography>
+            }
           />
           <Tab
             classes={{ root: classes.tabRoot, selected: classes.activeTab }}
             value={AVAILABLE_SHIFT_TYPE}
-            label="Available shifts"
+            label={
+              <Typography variant="h5" component="h2">
+                Available shifts
+              </Typography>
+            }
           />
         </Tabs>
         <ShiftsContext.Provider value={{ shifts, shiftDispatch }}>
           {isLoading ? (
-            <div>Loading...</div>
+            <Spinner color="green" />
           ) : (
             <div className={classes.tabContainer}>
               {shiftTabType === USER_SHIFT_TYPE && <UserShiftsTabContainer />}
